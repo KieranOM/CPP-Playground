@@ -4,9 +4,9 @@
 
 void WInput::update(long long deltaTime) {
 	// Calculate the rate of interpolation
-	float interpolationRate = ((float) deltaTime) / interpolate;
+	float interpolationRate = ((float)deltaTime) / interpolate;
 	// Determine direction from Windows keypresses (X axis)
-	float rawInput = (float) (((GetKeyState('D') & 0x8000) ? 1 : 0) - ((GetKeyState('A') & 0x8000) ? 1 : 0));
+	float rawInput = (float)(((GetKeyState('D') & 0x8000) ? 1 : 0) - ((GetKeyState('A') & 0x8000) ? 1 : 0));
 
 	// If there's no direction (or input cancelled out), begin returning the joystick to the original position
 	if (rawInput == 0) {
@@ -23,7 +23,7 @@ void WInput::update(long long deltaTime) {
 	}
 
 	// Determine direction again (Y axis)
-	rawInput = (float) (((GetKeyState('W') & 0x8000) ? 1 : 0) - ((GetKeyState('S') & 0x8000) ? 1 : 0));
+	rawInput = (float)(((GetKeyState('W') & 0x8000) ? 1 : 0) - ((GetKeyState('S') & 0x8000) ? 1 : 0));
 
 	// If there's no direction, begin returning the joystick to the original position
 	if (rawInput == 0) {

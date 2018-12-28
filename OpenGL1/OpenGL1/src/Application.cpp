@@ -45,22 +45,22 @@ int main()
 	short yAxisPlus = 'W';
 	short yAxisNeg = 'S';
 
-    GLFWwindow* window;
+	GLFWwindow* window;
 
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
+	/* Initialize the library */
+	if (!glfwInit())
+		return -1;
 
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(720, 720, "Input Testing", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
+	/* Create a windowed mode window and its OpenGL context */
+	window = glfwCreateWindow(720, 720, "Input Testing", NULL, NULL);
+	if (!window)
+	{
+		glfwTerminate();
+		return -1;
+	}
 
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
+	/* Make the window's context current */
+	glfwMakeContextCurrent(window);
 
 	if (glewInit() != GLEW_OK)
 		std::cout << "GLEW not initialised." << std::endl;
@@ -81,9 +81,9 @@ int main()
 	// Get the current time
 	std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
 
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
-    {
+	/* Loop until the user closes the window */
+	while (!glfwWindowShouldClose(window))
+	{
 		// Temporarily store current time
 		std::chrono::milliseconds msTemp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
 		long long deltaTime = (msTemp - ms).count();
@@ -91,8 +91,8 @@ int main()
 
 		input.update(deltaTime);
 
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+		/* Render here */
+		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw joystick base
 		glColor3f(0.5f, 0.5f, 0.5f);
@@ -100,15 +100,15 @@ int main()
 
 		// Draw joystick
 		glColor3f(0.25f, 0.25f, 0.25f);
-		drawCircle(input.getInputX()/5.0f, input.getInputY()/5.0f, 0.025f);
+		drawCircle(input.getInputX() / 5.0f, input.getInputY() / 5.0f, 0.025f);
 
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+		/* Swap front and back buffers */
+		glfwSwapBuffers(window);
 
-        /* Poll for and process events */
-        glfwPollEvents();
-    }
+		/* Poll for and process events */
+		glfwPollEvents();
+	}
 
-    glfwTerminate();
-    return 0;
+	glfwTerminate();
+	return 0;
 }
