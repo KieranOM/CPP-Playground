@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL1", "OpenGL1\OpenGL1.vcxproj", "{664426FD-AE5A-4B5A-BE96-F3F56965A532}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JoystickInput", "OpenGL1\OpenGL1.vcxproj", "{664426FD-AE5A-4B5A-BE96-F3F56965A532}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

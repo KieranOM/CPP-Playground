@@ -2,6 +2,7 @@
 #include <cmath>
 #include <stdio.h>
 #include <stdlib.h>
+#include <Windows.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "uinput/winput/winput.h"
@@ -36,6 +37,8 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat radius)
 
 int main()
 {
+	SetConsoleTitle("Joystick Input");
+	// Initialise the windows controls
 	WInput input = WInput();
 
 	// Define keycodes for x-axis input:
@@ -47,11 +50,11 @@ int main()
 
 	GLFWwindow* window;
 
-	/* Initialize the library */
+	// Initialize the library
 	if (!glfwInit())
 		return -1;
 
-	/* Create a windowed mode window and its OpenGL context */
+	// Create a windowed mode window and its OpenGL context
 	window = glfwCreateWindow(720, 720, "Input Testing", NULL, NULL);
 	if (!window)
 	{
@@ -59,7 +62,7 @@ int main()
 		return -1;
 	}
 
-	/* Make the window's context current */
+	// Make the window's context current
 	glfwMakeContextCurrent(window);
 
 	if (glewInit() != GLEW_OK)
@@ -81,7 +84,9 @@ int main()
 	// Get the current time
 	std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
 
-	/* Loop until the user closes the window */
+	float xInput = 0, yInput = 0;
+
+	// Loop until the user closes the window
 	while (!glfwWindowShouldClose(window))
 	{
 		// Temporarily store current time
@@ -92,20 +97,32 @@ int main()
 		input.update(deltaTime);
 
 		/* Render here */
+
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw joystick base
 		glColor3f(0.5f, 0.5f, 0.5f);
 		drawCircle(0.0f, 0.0f, 0.225f);
 
+		// Check if the input has changed to print to console
+		float xInputPrime = input.getInputX();
+		float yInputPrime = input.getInputY();
+
+		if (!(xInput == xInputPrime && yInput == yInputPrime)) {
+			std::cout << "[X:" << xInputPrime << "\tY:" << yInputPrime << "]" << std::endl;
+		}
+
+		xInput = xInputPrime;
+		yInput = yInputPrime;
+
 		// Draw joystick
 		glColor3f(0.25f, 0.25f, 0.25f);
-		drawCircle(input.getInputX() / 5.0f, input.getInputY() / 5.0f, 0.025f);
+		drawCircle(xInput / 5.0f, yInput / 5.0f, 0.025f);
 
-		/* Swap front and back buffers */
+		// Swap front and back buffers
 		glfwSwapBuffers(window);
 
-		/* Poll for and process events */
+		// Poll for and process events
 		glfwPollEvents();
 	}
 
